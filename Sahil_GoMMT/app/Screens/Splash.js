@@ -21,14 +21,12 @@ export default class Splash extends Component {
                 setTimeout(() => navigate('Login'), 1000);
             }
         })
-
     }
 
     render() {
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={[styles.container, { alignItems: 'center' }]}>
                 <Image style={styles.logo} source={require('../assets/images/banner.png')} resizeMode='contain' />
-                <ActivityIndicator size={50} color={ColorTheme.secondary} style={styles.loader} animating={true} />
             </SafeAreaView>
         );
     }

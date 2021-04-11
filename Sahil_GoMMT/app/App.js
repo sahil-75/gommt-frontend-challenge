@@ -1,9 +1,8 @@
 import React from 'react';
-import { StatusBar, Alert, BackHandler } from 'react-native';
+import { StatusBar, LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { useAndroidBackHandler } from "react-navigation-backhandler";
 
 import { ColorTheme } from './utils/constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -20,15 +19,21 @@ import MyBookings from './Screens/GuestMode/MyBookings';
 import MyRequests from './Screens/HostMode/MyRequests';
 import RequestDetails from './Screens/HostMode/RequestDetails';
 
+import MessageScreen from './components/MessageScreen';
+
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
+LogBox.ignoreAllLogs();
 
 function Home() {
   return (
     <Tab.Navigator
+      shifting={false}
+      backBehavior='none'
       initialRouteName="FindHomes"
-      activeColor={ColorTheme.primary}
-      barStyle={{ backgroundColor: ColorTheme.secondary }}
+      inactiveColor={ColorTheme.whiteFaded}
+      activeColor={ColorTheme.secondaryFaded}
+      barStyle={{ backgroundColor: ColorTheme.primaryFaded, borderTopColor: ColorTheme.whiteFaded, borderTopWidth: 1, elevation: 10 }}
     >
       <Tab.Screen
         name="FindHomes"
@@ -36,7 +41,7 @@ function Home() {
         options={{
           tabBarLabel: 'Find Homes',
           tabBarIcon: ({ color }) => (
-            <Icon name="home" size={25} color={ColorTheme.primary} />
+            <Icon name="home" size={25} color={color} />
           ),
         }}
       />
@@ -46,7 +51,7 @@ function Home() {
         options={{
           tabBarLabel: 'My Bookings',
           tabBarIcon: ({ color }) => (
-            <Icon name="person" size={25} color={ColorTheme.primary} />
+            <Icon name="person" size={25} color={color} />
           ),
         }}
       />
@@ -56,7 +61,7 @@ function Home() {
         options={{
           tabBarLabel: 'My Requests',
           tabBarIcon: ({ color }) => (
-            <Icon name="person" size={25} color={ColorTheme.primary} />
+            <Icon name="person" size={25} color={color} />
           ),
         }}
       />
@@ -66,7 +71,7 @@ function Home() {
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color }) => (
-            <Icon name="person" size={25} color={ColorTheme.primary} />
+            <Icon name="person" size={25} color={color} />
           ),
         }}
       />
@@ -75,24 +80,9 @@ function Home() {
 }
 
 const App = () => {
-  useAndroidBackHandler(() => {
-    Alert.alert(
-      'Exit App',
-      'Are you sure you want to leave the app?', [{
-        text: 'Cancel',
-        onPress: () => { },
-      }, {
-        text: 'Cancel',
-        onPress: () => { BackHandler.exitApp(); return true },
-      }],
-      { cancelable: false }
-    )
-    return true;
-  });
-
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor={'#16242f'} barStyle="light-content" />
+      <StatusBar backgroundColor={'black'} barStyle="light-content" />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="Login" component={Login} />
@@ -102,6 +92,8 @@ const App = () => {
         <Stack.Screen name="BookHome" component={BookHome} />
 
         <Stack.Screen name="RequestDetails" component={RequestDetails} />
+
+        <Stack.Screen name="MessageScreen" component={MessageScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

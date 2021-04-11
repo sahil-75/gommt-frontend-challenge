@@ -58,8 +58,8 @@ export default class BookHome extends Component {
                         <TextInput numberOfLines={5} onChangeText={(text) => this.setState({ message: text })} placeholder='Message for owner' placeholderTextColor={ColorTheme.whiteFaded} style={[styles.box, styles.textInput, { width: width - 50, height: 160 }]} />
                     </View>
                     <View style={{ flex: 1, alignItems: 'center' }}>
-                        <TouchableOpacity style={[styles.BookButton, { width: 200 }]} >
-                            <Text style={styles.h3}>Confirm Booking</Text>
+                        <TouchableOpacity style={[styles.BookButton, { backgroundColor: ColorTheme.secondaryFaded, width: 200 }]} onPress={() => this.props.navigation.navigate('MessageScreen', { isFromBookHome: true, bookingStatus: true })}>
+                            <Text style={[styles.h3, { color: ColorTheme.primary }]}>Confirm Booking</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

@@ -10,22 +10,28 @@ export default class MessageScreen extends Component {
     }
 
     async redirect() {
-        setTimeout(() => this.props.navigation.goBack(), 7000);
+        setTimeout(() => this.props.navigation.goBack(), 4000);
     }
 
     render() {
         return (
             <SafeAreaView style={[styles.container, { alignItems: 'center' }]}>
-                {this.props.route.params.approvalStatus ?
+                {this.props.route.params.isFromBookHome ?
                     <View style={{ alignItems: 'center' }}>
                         <Icon name="celebration" size={150} color={ColorTheme.secondary} />
-                        <Text style={[styles.h0, { color: ColorTheme.secondary }]}>Booking Request Approved</Text>
+                        <Text style={[styles.h0, { color: ColorTheme.secondary, paddingHorizontal: 10 }]}>Booking Request Created</Text>
                     </View>
                     :
-                    <View style={{ alignItems: 'center' }}>
-                        <Icon name="warning" size={150} color={ColorTheme.orange} />
-                        <Text style={[styles.h0, { color: ColorTheme.orange }]}>Booking Request Rejected</Text>
-                    </View>
+                    this.props.route.params.approvalStatus ?
+                        <View style={{ alignItems: 'center' }}>
+                            <Icon name="celebration" size={150} color={ColorTheme.secondary} />
+                            <Text style={[styles.h0, { color: ColorTheme.secondary, paddingHorizontal: 10 }]}>Booking Request Approved</Text>
+                        </View>
+                        :
+                        <View style={{ alignItems: 'center' }}>
+                            <Icon name="warning" size={150} color={ColorTheme.orange} />
+                            <Text style={[styles.h0, { color: ColorTheme.orange, paddingHorizontal: 10 }]}>Booking Request Rejected</Text>
+                        </View>
                 }
             </SafeAreaView>
         );
